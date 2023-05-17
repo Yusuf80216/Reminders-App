@@ -1,6 +1,6 @@
 # Subtle Reminders App
 
-Created the App using Flutter and Dart.
+Created the App using Flutter and Dart. And used Firebase as the database!
 
 Below are the screenshots of the App ⬇️
 
