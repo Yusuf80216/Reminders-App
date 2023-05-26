@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reminders_app/veiws/home_page.dart';
@@ -134,9 +135,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       children: [
                         SizedBox(height: 20.68),
                         Text(
-                          "SIGN UP",
+                          "Welcome!",
                           style: GoogleFonts.wallpoet(
-                            fontSize: 35,
+                            fontSize: 35.w,
                             color: lightBlue,
                             shadows: [
                               BoxShadow(
@@ -176,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 const Text(
-                                  "Sign Up with Google",
+                                  "Continue with Google",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

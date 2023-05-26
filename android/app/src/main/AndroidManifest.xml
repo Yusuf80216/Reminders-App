@@ -2,7 +2,7 @@
     package="com.example.reminders_app">
    <application
         android:usesCleartextTraffic="true"
-        android:label="reminders_app"
+        android:label="Subtle Reminders"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
