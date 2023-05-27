@@ -23,21 +23,34 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration:
-          Duration(milliseconds: 1000), // Duration for the fade-in animation
+      duration: const Duration(
+          milliseconds: 700), // Duration for the fade-out animation
     );
 
-    _opacityAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController!);
+    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _animationController!,
+        curve: Curves.easeOut,
+      ),
+    );
 
     _animationController!.forward();
     Timer(
-      Duration(seconds: 1),
+      const Duration(milliseconds: 700),
       () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-            builder: (context) => WidgetTree(),
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                WidgetTree(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 700),
           ),
         );
       },
@@ -45,35 +58,45 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                "assets/background.png",
+        backgroundColor: Colors.transparent,
+        body: FadeTransition(
+          opacity: _opacityAnimation!,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  "assets/background.png",
+                ),
+                fit: BoxFit.cover,
               ),
-              fit: BoxFit.cover,
             ),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/SR_LOGO.png",
-                  width: 200.w,
-                ),
-                SizedBox(
-                  height: 66.w,
-                ),
-                Image.asset(
-                  "assets/SR.png",
-                  width: 350.w,
-                ),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/SR_LOGO.png",
+                    width: 200.w,
+                  ),
+                  SizedBox(
+                    height: 66.w,
+                  ),
+                  Image.asset(
+                    "assets/SR.png",
+                    width: 350.w,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
